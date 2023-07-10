@@ -1,0 +1,15 @@
+<!-- Taken from index.html -->
+
+{% for p in posts %}
+    <p class="category">Category: {{ p.cat }}</p>
+
+    {% if p.photo %}
+    <p><img class="img-article-left thumb" src="{{p.photo.url}}" alt=""></p>
+    {% endif %}
+    <h4>{{ p.title }}</h4>
+    <div>
+        <p>{{ p.content|linebreaks|truncatewords:100 }}</p>
+        <p class="link-read-post"><a href="{{ p.get_absolute_url }}">Read more</a></p>
+        <hr>
+    </div>
+    {% endfor %}

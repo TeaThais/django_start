@@ -1,0 +1,36 @@
+{% load static %}
+{% load cats_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="{% static 'cats/images/logocat.jpg' %}" type="image/x-icon"/>
+    <link type="text/css" href="{% static 'cats/css/styles.css' %}" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    {% block mainmenu %}
+	<div class="header">
+        <div id="mainmenu" class="mainmenu">
+                <a href="{% url 'home' %}"><div class="logo"></div></a>
+
+
+{% show_menu_items %}
+        </div>
+</div>
+    {% endblock mainmenu %}
+<div>
+<!-- {% getcats as categories %} -->
+
+{% show_categories 'name' cat_selected %}
+
+</div>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

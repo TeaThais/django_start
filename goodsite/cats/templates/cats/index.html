@@ -1,0 +1,10 @@
+{% extends 'cats/base.html' %}
+{% load cats_tags %}
+
+{% block content %}
+
+<div class="main-div">
+{% show_posts_on_page cat_selected %}
+</div>
+
+{% endblock %}

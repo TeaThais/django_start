@@ -1,0 +1,113 @@
+html, body {
+    font-family: 'Georgia';
+    height: 100%;
+
+}
+
+.main-div {
+    margin: 30px;
+}
+
+.header {
+	background: #a35ef2;
+	height: 60px;
+}
+
+
+.logo {
+	background: url('../images/logocat.jpg')  no-repeat 15px;
+	background-size: contain;
+	width: 70px;
+	height: 60px;
+	padding-right: 10px;
+}
+
+
+
+.mainmenu {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin: 20px;
+}
+
+.menu-items {
+    margin: 20px;
+}
+
+
+a:visited {
+    color: white;
+}
+
+p.link-read-post {
+	text-align: right;
+}
+
+p.link-read-post a {
+	padding: 10px;
+	min-width: 100px;
+	background: #5f2cde;
+	color: pink;
+	text-decoration: none;
+}
+
+.box {
+ 	background: #5f2cde;
+    display: grid;
+    padding: 10px;
+    justify-content: center;
+    color: pink;
+}
+
+.box selected {
+    text-decoration: None;
+}
+
+.box:visited {
+    color: pink;
+}
+
+.category {
+    background: #eee;
+    padding: 5px 10px 5px 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #555;
+}
+
+img {max-width: 600px; height: auto;}
+
+img.img-article-left {
+	max-width: 300px;
+	height: auto;
+	float: left;
+	padding: 0 10px 10px 0;
+}
+
+img.img-article-left.thumb {
+	max-width: 150px;
+	height: auto;
+}
+
+.form-input {
+    width: 300px;
+    font-size: 16px;
+}
+
+.form-label {
+    display: inline-block;
+    min-width: 150px;
+    vertical-align: top;
+}
+
+.form-error ul {
+    list-style: none;
+    padding: 0;
+    color: #CC0000;
+}
+
+.form-button {
+    min-width: 200px;
+    font-size: 16px;
+}
