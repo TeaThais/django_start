@@ -20,6 +20,8 @@ from django.urls import path, include
 from cats.views import page_not_found
 from goodsite import settings
 
+from cats.views import CatsHome
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cats.urls'))

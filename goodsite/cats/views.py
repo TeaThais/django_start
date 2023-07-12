@@ -1,15 +1,52 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView
 
 from cats.forms import *
 from cats.models import Cats, Category, Menu
 
 
-def index(request):
+class CatsHome(ListView):
+    model = Cats
+    template_name = 'cats/for_view.html'
+    context_object_name = 'posts'
+    extra_context = {'title': 'Main page'}  # for unchangeable data
+
+    def get_queryset(self):
+        return Cats.objects.filter(is_published=True)
+
+
+# def index(request):
+#     context = {
+#         'title': 'Main page',
+#         'cat_selected': 0
+#     }
+#     return render(request, 'cats/index.html', context=context)
+
+
+class ShowCategory(ListView):
+    model = Cats
+    template_name = 'cats/for_view.html'
+    context_object_name = 'posts'
+    allow_empty = False   # to generate 404 when index doesn't exist
+
+    def get_queryset(self):
+        return Cats.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = str(context['posts'][0].cat)
+        context['cat_selected'] = context['posts'][0].cat_id
+        return context
+
+
+def show_category(request, cat_slug):
+    category = get_object_or_404(Category, slug=cat_slug)
 
     context = {
-        'title': 'Main page',
-        'cat_selected': 0
+        'category': category,
+        'title': 'Selected cats',
+        'cat_selected': category.id
     }
     return render(request, 'cats/index.html', context=context)
 
@@ -26,17 +63,6 @@ def show_post(request, post_slug):
     return render(request, 'cats/post_complete.html', context=context)
 
 
-def show_category(request, cat_slug):
-    category = get_object_or_404(Category, slug=cat_slug)
-
-    context = {
-        'category': category,
-        'title': 'Selected cats',
-        'cat_selected': category.id
-    }
-    return render(request, 'cats/index.html', context=context)
-
-
 def about(request):
     return render(request, 'cats/about.html', {'title': 'About'})
 
@@ -45,7 +71,7 @@ def add_new(request):
     if request.method == 'POST':
         form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
-                # Cats.objects.create(**form.cleaned_data)
+            # Cats.objects.create(**form.cleaned_data)
             form.save()
             return redirect('home')
     else:

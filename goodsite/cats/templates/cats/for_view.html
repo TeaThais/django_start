@@ -1,6 +1,9 @@
-<!-- Taken from index.html -->
+{% extends 'cats/base.html' %}
+{% load cats_tags %}
 
+{% block content %}
 
+<div class="main-div">
 {% for p in posts %}
     <p class="category">Category: {{ p.cat }}</p>
 
@@ -14,3 +17,6 @@
         <hr>
     </div>
     {% endfor %}
+</div>
+
+{% endblock %}
