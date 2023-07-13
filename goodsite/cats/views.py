@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 from cats.forms import *
 from cats.models import Cats, Category, Menu
@@ -79,16 +79,26 @@ def about(request):
     return render(request, 'cats/about.html', {'title': 'About'})
 
 
-def add_new(request):
-    if request.method == 'POST':
-        form = AddPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            # Cats.objects.create(**form.cleaned_data)
-            form.save()
-            return redirect('home')
-    else:
-        form = AddPostForm()
-    return render(request, 'cats/add_new.html', {'form': form, 'title': 'Add new cat'})
+class AddNew(CreateView):
+    form_class = AddPostForm
+    template_name = 'cats/add_new.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add new cat'
+        return context
+
+
+# def add_new(request):
+#     if request.method == 'POST':
+#         form = AddPostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             # Cats.objects.create(**form.cleaned_data)
+#             form.save()
+#             return redirect('home')
+#     else:
+#         form = AddPostForm()
+#     return render(request, 'cats/add_new.html', {'form': form, 'title': 'Add new cat'})
 
 
 def contact(request):
