@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from cats.forms import *
 from cats.models import Cats, Category, Menu
@@ -14,7 +14,6 @@ class CatsHome(ListView):
 
     def get_queryset(self):
         return Cats.objects.filter(is_published=True)
-
 
 # def index(request):
 #     context = {
@@ -39,28 +38,41 @@ class ShowCategory(ListView):
         context['cat_selected'] = context['posts'][0].cat_id
         return context
 
+# def show_category(request, cat_slug):
+#     category = get_object_or_404(Category, slug=cat_slug)
+#
+#     context = {
+#         'category': category,
+#         'title': 'Selected cats',
+#         'cat_selected': category.id
+#     }
+#     return render(request, 'cats/index.html', context=context)
 
-def show_category(request, cat_slug):
-    category = get_object_or_404(Category, slug=cat_slug)
 
-    context = {
-        'category': category,
-        'title': 'Selected cats',
-        'cat_selected': category.id
-    }
-    return render(request, 'cats/index.html', context=context)
+class ShowPost(DetailView):
+    model = Cats
+    template_name = 'cats/post_complete.html'
+    context_object_name = 'post'
+    slug_url_kwarg = 'post_slug'
 
+    def get_queryset(self):
+        return Cats.objects.filter(slug=self.kwargs['post_slug'])
 
-def show_post(request, post_slug):
-    post = get_object_or_404(Cats, slug=post_slug)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['post'].title
+        return context
 
-    context = {
-        'post': post,
-        'title': post.title,
-        'cat_selected': post.cat_id,
-    }
-
-    return render(request, 'cats/post_complete.html', context=context)
+# def show_post(request, post_slug):
+#     post = get_object_or_404(Cats, slug=post_slug)
+#
+#     context = {
+#         'post': post,
+#         'title': post.title,
+#         'cat_selected': post.cat_id,
+#     }
+#
+#     return render(request, 'cats/post_complete.html', context=context)
 
 
 def about(request):
