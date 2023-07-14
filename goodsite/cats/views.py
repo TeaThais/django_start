@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
 from cats.forms import *
@@ -82,12 +83,12 @@ def about(request):
 class AddNew(CreateView):
     form_class = AddPostForm
     template_name = 'cats/add_new.html'
+    success_url = reverse_lazy('home')    # after adding shows homepage
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Add new cat'
         return context
-
 
 # def add_new(request):
 #     if request.method == 'POST':
