@@ -5,13 +5,19 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from cats.forms import *
 from cats.models import Cats, Category, Menu
+from .utils import *
 
 
-class CatsHome(ListView):
+class CatsHome(DataMixin, ListView):
     model = Cats
     template_name = 'cats/for_view.html'
     context_object_name = 'posts'
-    extra_context = {'title': 'Main page'}  # for unchangeable data
+   # extra_context = {'title': 'Main page'}  # for unchangeable data
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Main page")
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         return Cats.objects.filter(is_published=True)
@@ -24,7 +30,7 @@ class CatsHome(ListView):
 #     return render(request, 'cats/index.html', context=context)
 
 
-class ShowCategory(ListView):
+class ShowCategory(DataMixin, ListView):
     model = Cats
     template_name = 'cats/for_view.html'
     context_object_name = 'posts'
@@ -35,9 +41,10 @@ class ShowCategory(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = str(context['posts'][0].cat)
-        context['cat_selected'] = context['posts'][0].cat_id
-        return context
+        # context['title'] = str(context['posts'][0].cat)
+        # context['cat_selected'] = context['posts'][0].cat_id
+        c_def = self.get_user_context(title=str(context['posts'][0].cat), cat_selected=context['posts'][0].cat_id)
+        return dict(list(context.items()) + list(c_def.items()))
 
 # def show_category(request, cat_slug):
 #     category = get_object_or_404(Category, slug=cat_slug)
@@ -50,7 +57,7 @@ class ShowCategory(ListView):
 #     return render(request, 'cats/index.html', context=context)
 
 
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView):
     model = Cats
     template_name = 'cats/post_complete.html'
     context_object_name = 'post'
@@ -61,8 +68,8 @@ class ShowPost(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = context['post'].title
-        return context
+        c_def = self.get_user_context(title=context['post'])
+        return dict(list(context.items()) + list(c_def.items()))
 
 # def show_post(request, post_slug):
 #     post = get_object_or_404(Cats, slug=post_slug)
@@ -80,15 +87,15 @@ def about(request):
     return render(request, 'cats/about.html', {'title': 'About'})
 
 
-class AddNew(CreateView):
+class AddNew(DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'cats/add_new.html'
     success_url = reverse_lazy('home')    # after adding shows homepage
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Add new cat'
-        return context
+        c_def = self.get_user_context(title='Add new cat')
+        return dict(list(context.items()) + list(c_def.items()))
 
 # def add_new(request):
 #     if request.method == 'POST':

@@ -64,7 +64,7 @@ p.link-read-post a {
     text-decoration: None;
 }
 
-.box:visited {
+.box a:visited {
     color: pink;
 }
 

@@ -23,10 +23,18 @@
 </div>
     {% endblock mainmenu %}
 <div>
-<!-- {% getcats as categories %} -->
+ {% getcats as categories %}
 
-{% show_categories 'name' cat_selected %}
-
+<!-- {% show_categories 'name' cat_selected %} -->
+    {% for c in cats %}
+        {% if c.pk == cat_selected %}
+            <div class="box selected">{{c.name}}</div>
+        {% else %}
+    <div class="box">
+            <a href="{{c.get_absolute_url }}">{{c.name}}</a>
+        </div>
+        {% endif %}
+    {% endfor %}
 </div>
 
     {% block content %}
