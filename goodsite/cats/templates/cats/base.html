@@ -18,12 +18,18 @@
                 <a href="{% url 'home' %}"><div class="logo"></div></a>
 
 
-{% show_menu_items %}
+
+{% for m in menu %}
+       <div class="menu-items">
+            <a href="{% url m.url_name %}">{{m.title}}</a>
+       </div>
+
+{% endfor %}
         </div>
 </div>
     {% endblock mainmenu %}
 <div>
- {% getcats as categories %}
+<!-- {% getcats as categories %}-->
 
 <!-- {% show_categories 'name' cat_selected %} -->
     {% for c in cats %}

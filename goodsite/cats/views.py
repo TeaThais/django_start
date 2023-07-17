@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from cats.forms import *
 from cats.models import Cats, Category, Menu
@@ -87,7 +88,7 @@ def about(request):
     return render(request, 'cats/about.html', {'title': 'About'})
 
 
-class AddNew(DataMixin, CreateView):
+class AddNew(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'cats/add_new.html'
     success_url = reverse_lazy('home')    # after adding shows homepage
