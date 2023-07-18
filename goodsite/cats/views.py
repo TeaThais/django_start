@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -10,6 +11,7 @@ from .utils import *
 
 
 class CatsHome(DataMixin, ListView):
+    # paginate_by = 2    =>  method from ListView class
     model = Cats
     template_name = 'cats/for_view.html'
     context_object_name = 'posts'
@@ -84,10 +86,6 @@ class ShowPost(DataMixin, DetailView):
 #     return render(request, 'cats/post_complete.html', context=context)
 
 
-def about(request):
-    return render(request, 'cats/about.html', {'title': 'About'})
-
-
 class AddNew(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'cats/add_new.html'
@@ -116,6 +114,11 @@ def contact(request):
 
 def login(request):
     return HttpResponse('Login')
+
+
+def about(request):
+
+    return render(request, 'cats/about.html', {'title': 'About', 'menu': Menu.objects.all()})
 
 
 def page_not_found(request, exception):

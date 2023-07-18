@@ -45,3 +45,6 @@ def show_posts_on_page(filter=None, cat_selected=0):
 def show_menu_items():
     menu = Menu.objects.all()
     return {'menu': menu}
+
+
+

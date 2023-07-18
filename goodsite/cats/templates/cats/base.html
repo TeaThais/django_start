@@ -1,5 +1,6 @@
 {% load static %}
-{% load cats_tags %}
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,9 +30,7 @@
 </div>
     {% endblock mainmenu %}
 <div>
-<!-- {% getcats as categories %}-->
 
-<!-- {% show_categories 'name' cat_selected %} -->
     {% for c in cats %}
         {% if c.pk == cat_selected %}
             <div class="box selected">{{c.name}}</div>
@@ -45,6 +44,9 @@
 
     {% block content %}
     {% endblock %}
+
+{% include 'paginator/paginator.html'%}
+
 
 </body>
 </html>
