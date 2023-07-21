@@ -14,19 +14,19 @@
 <body>
 
     {% block mainmenu %}
-	<div class="header">
-        <div id="mainmenu" class="mainmenu">
+<div class="header">
+    <div id="mainmenu" class="mainmenu">
                 <a href="{% url 'home' %}"><div class="logo"></div></a>
-
-
 
 {% for m in menu %}
        <div class="menu-items">
             <a href="{% url m.url_name %}">{{m.title}}</a>
        </div>
-
 {% endfor %}
+        <div class="menu-items">
+          <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
         </div>
+    </div>
 </div>
     {% endblock mainmenu %}
 <div>

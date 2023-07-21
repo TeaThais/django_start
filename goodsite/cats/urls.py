@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from .views import about, contact, login, CatsHome, ShowCategory, ShowPost, AddNew
+from .views import about, contact, login, CatsHome, ShowCategory, ShowPost, AddNew, RegisterUser
 
 urlpatterns = [
     path('', CatsHome.as_view(), name='home'),
@@ -8,6 +8,7 @@ urlpatterns = [
     path('add_new/', AddNew.as_view(), name='add_new'),
     path('contact/', contact, name='contact'),
     path('login/', login, name='login'),
+    path('register/', RegisterUser.as_view(), name='register'),
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
     path('category/<slug:cat_slug>/', ShowCategory.as_view(), name='category')
 ]

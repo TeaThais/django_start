@@ -26,7 +26,6 @@ html, body {
 
 .mainmenu {
     display: flex;
-    align-items: center;
     color: white;
     margin: 20px;
 }
@@ -35,10 +34,14 @@ html, body {
     margin: 20px;
 }
 
-
-a:visited {
+.menu-items a {
     color: white;
 }
+
+.menu-items a:visited {
+    color: white;
+}
+
 
 p.link-read-post {
 	text-align: right;
