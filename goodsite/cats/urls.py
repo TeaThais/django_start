@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import include, path
 
 from .views import about, contact, CatsHome, ShowCategory, ShowPost, AddNew, RegisterUser, LoginUser, logout_user
 
@@ -11,7 +11,8 @@ urlpatterns = [
     path('logout', logout_user, name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
-    path('category/<slug:cat_slug>/', ShowCategory.as_view(), name='category')
+    path('category/<slug:cat_slug>/', ShowCategory.as_view(), name='category'),
+    path("__debug__/", include("debug_toolbar.urls"))
 ]
 
 
