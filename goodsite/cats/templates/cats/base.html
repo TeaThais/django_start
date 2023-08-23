@@ -1,7 +1,6 @@
 {% load static %}
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +12,8 @@
 </head>
 <body>
 
-    {% block mainmenu %}
+
+{% block mainmenu %}
 <div class="header">
     <div id="mainmenu" class="mainmenu">
                 <a href="{% url 'home' %}"><div class="logo"></div></a>
@@ -35,8 +35,8 @@
     </div>
 </div>
     {% endblock mainmenu %}
-<div>
 
+<div>
     {% for c in cats %}
         {% if c.pk == cat_selected %}
             <div class="box selected">{{c.name}}</div>
