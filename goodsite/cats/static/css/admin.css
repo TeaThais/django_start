@@ -1,0 +1,26 @@
+#header, .module caption, .module h2{
+    background: #a35ef2;
+}
+
+a:link, a:visited, #changelist-filter  {
+    color: #5f2cde;
+}
+
+#changelist-filter li.selected a{
+    color: #5f2cde !important;
+}
+
+.button.default, input[type="submit"].default, .submit-row input.default,
+.button, input[type="submit"], input[type="button"], .submit-row input, a.button {
+    background: #5f2cde;
+}
+
+.button:active, input[type="submit"]:active, input[type="button"]:active, .button:focus, input[type="submit"]:focus, input[type="button"]:focus, .button:hover, input[type="submit"]:hover, input[type="button"]:hover,
+.button.default:active, input[type="submit"].default:active, .button.default:focus, input[type="submit"].default:focus, .button.default:hover, input[type="submit"].default:hover {
+    background: #a35ef2;
+}
+
+div.breadcrumbs {
+    background: #5f2cde;
+}
+
